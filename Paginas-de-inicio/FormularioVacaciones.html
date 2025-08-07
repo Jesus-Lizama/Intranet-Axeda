@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Solicitud de Vacaciones</title>
+  <link rel="stylesheet" href="/css/rhestilos.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h1>Solicitud de Vacaciones</h1>
+    <form action="https://formspree.io/f/mqalbvdv" method="POST">
+  <label for="nombre">Nombre completo:</label>
+  <input type="text" id="nombre" name="Nombre" required>
+
+  <label for="departamento">Departamento:</label>
+  <input type="text" id="departamento" name="Departamento" required>
+
+  <label for="correo">Correo electrónico:</label>
+  <input type="email" id="correo" name="Correo" required>
+
+  <label for="fecha-inicio">Fecha de inicio:</label>
+  <input type="date" id="fecha-inicio" name="Fecha de inicio" required>
+
+  <label for="fecha-fin">Fecha de fin:</label>
+  <input type="date" id="fecha-fin" name="Fecha de fin" required>
+
+  <label for="comentarios">Comentarios adicionales:</label>
+  <textarea id="comentarios" name="Comentarios" rows="4"></textarea>
+
+  <button type="submit">Enviar solicitud</button>
+  
+</form>
+  <div class="back-button" style="margin-top: 20px; text-align: center;">
+    <a href="recursos-humanos.html" style="
+      display: inline-block;
+      padding: 10px 24px;
+      background-color: #3498db;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.2s;
+      box-shadow: 0 2px 6px rgba(52,152,219,0.15);
+    " onmouseover="this.style.backgroundColor='#217dbb'" onmouseout="this.style.backgroundColor='#3498db'">
+      Volver
+    </a>
+  </div>
+  </div>
+</body>
+</html>

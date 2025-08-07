@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Tickets</title>
+  <link rel="stylesheet" href="/css/panel.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Panel de Tickets</h1>
+    
+    <section class="nuevo-ticket">
+      <h2>Crear Nuevo Ticket</h2>
+      <form id="form-ticket">
+        <label>
+          Nombre:
+          <input type="text" name="nombre" required>
+        </label>
+        <label>
+          Departamento:
+          <input type="text" name="departamento" required>
+        </label>
+        <label>
+          Tipo de solicitud:
+          <select name="Selecciona un problema" required>
+            <option value="" disabled selected>Selecciona un problema</option>
+            <option value="Soporte Técnico">Soporte Técnico</option>
+            <option value="Desarrollo">CRM</option>
+            <option value="Redes">Redes</option>
+            <option value="Administración">Aplicativos Google</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </label>
+        <label>
+          Descripción:
+          <textarea name="descripcion" required></textarea>
+        </label>
+        <button type="submit">Crear Ticket</button>
+        <button type="button" onclick="window.location.href='inicio.html'">Regresar a Inicio</button>
+      </form>
+    </section>
+
+    <section class="lista-tickets">
+      <h2>Tickets Generados</h2>
+      <div id="tickets"></div>
+    </section>
+  </div>
+
+  <script>
+    async function cargarTickets() {
+      const res = await fetch("/api/tickets");
+      const tickets = await res.json();
+      const container = document.getElementById("tickets");
+      container.innerHTML = "";
+      tickets.forEach(t => {
+        const div = document.createElement("div");
+        div.className = "ticket";
+        div.innerHTML = `
+          <h3>${t.nombre}</h3>
+          <p><strong>Departamento:</strong> ${t.departamento}</p>
+          <p><strong>Equipo:</strong> ${t.equipo}</p>
+          <p><strong>Descripción:</strong> ${t.descripcion}</p>
+          <p><em>${t.fecha}</em></p>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    document.getElementById("form-ticket").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        nombre: form.nombre.value,
+        departamento: form.departamento.value,
+        equipo: form.equipo.value,
+        descripcion: form.descripcion.value
+      };
+      await fetch("/api/tickets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      form.reset();
+      cargarTickets();
+    });
+
+    cargarTickets();
+  </script>
+  <script src="/json/panel.js"></script>
+</body>
+</html>
